@@ -21,9 +21,6 @@ jobs:
         with:
           java-version: '17'
 
-      - name: Navigate to the project directory
-        run: cd eureka-server
-
       - name: Build with Maven
         run: mvn clean install
 
@@ -31,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '${{ github.workspace }}/eureka-server/target/*.jar'
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,4 +50,4 @@ jobs:
           app-name: 's10-14-ft-eurekaserver'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B1C71E63A49B47B1A97C2EC39A976801 }}
-          package: '*.jar'
+          package: 'target/*.jar'
